@@ -1,9 +1,6 @@
 package PokerGame;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PokerName {
     //存放4种花色
@@ -46,11 +43,30 @@ public class PokerName {
         shuffle(poker);
         System.out.println(poker);
         System.out.println("-------------------------------------");
-        shuffle(poker);
-        System.out.println(poker);
-        System.out.println("-------------------------------------");
         //标准库自带的洗牌方法
         Collections.shuffle(poker);
         System.out.println(poker);
+        System.out.println("-------------------------------------");
+        //3.发牌：每个玩家发5张牌，这五张牌用另一个ArrayList表示
+        List<List<Card>> players = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入玩家的个数：");
+        int num = scanner.nextInt();
+        for (int i = 0; i < num; i++) {
+            players.add(new ArrayList<Card>());
+        }
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < num; j++) {
+                Card topCard = poker.remove(0);
+                List<Card> player = players.get(j);
+                player.add(topCard);
+            }
+        }
+        System.out.println(players);
+        System.out.println("-------------------------------------");
+        //4.展示手牌：
+        for (int i = 0; i < players.size(); i++) {
+            System.out.println("第" + (i + 1) + "位玩家的牌是：" + players.get(i));
+        }
     }
 }
